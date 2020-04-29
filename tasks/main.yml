@@ -1,0 +1,10 @@
+---
+# tasks file for distrobuilder---
+
+- name: Build
+  become: True
+  command: "{{ distrobuilder_cmd }} {{ distrobuilder_builder }} {{ distrobuilder_image_tpl }} -o image.release={{ distrobuilder_image_release }}"
+  notify:
+    - Move Template
+    - Clean RootFS
+    - Clean Meta

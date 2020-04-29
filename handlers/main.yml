@@ -1,0 +1,23 @@
+---
+# handlers file for distrobuilder---
+
+- name: Move Template
+  become: True
+  copy:
+    src: "{{ rootfs_name }}"
+    dest: "{{ tpl_dir }}{{ tpl_name }}"
+    backup: yes
+
+- name: Clean RootFS
+  become: True
+  file:
+    path: "{{ rootfs_name }}"
+    state: absent
+  when: distrobuilder_rootfs_clean
+
+- name: Clean Meta
+  become: True
+  file:
+    path: "{{ meta_name }}"
+    state: absent
+  when: distrobuilder_meta_clean
